@@ -28,7 +28,7 @@ const Login = () => {
     let data = await result.json();
     if (data.detail == "Login successfully") {
       Cookies.set('jwt', data.jwt)
-      await fetch(`http://localhost:8000/api/user/view`, {
+      await fetch(`${HOST}/api/user/view`, {
         headers: {
           'Authorization': `jwt=${data.jwt}`
         },
