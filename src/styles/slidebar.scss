@@ -1,0 +1,62 @@
+.slidebar-container {
+  width: 350px;
+  height: calc(100vh - 100px);
+  color: #fff;
+  text-align: left;
+  background-color: #d10a1f;
+  padding-top: 30px;
+  position: fixed;
+  top: 100px;
+  left: 0;
+  .logo {
+    text-align: left;
+    padding-left: 30px;
+    padding-right: 30px;
+    h5 {
+      margin: 0;
+    }
+    .logo-name {
+      font-size: 2rem;
+      font-weight: 800;
+    }
+    .admin-name {
+      font-size: 16px;
+      color: #dcdcdc;
+    }
+  }
+  .menu-choice {
+    .menu-item {
+      padding: 20px 10px;
+      padding-left: 30px;
+      .menu-item--icon {
+        color: rgba(0, 0, 0, 0.54);
+        display: inline-flex;
+        min-width: 40px;
+        svg {
+          width: 1.5em;
+          height: 1.5em;
+          fill: #fff;
+        }
+      }
+      .menu-item--text {
+        text-transform: capitalize;
+        font-weight: 600;
+      }
+    }
+    .menu-item:hover {
+      background-color: rgb(24 20 20 / 10%);
+    }
+    .menu-item.menu-item--active {
+      background-color: rgb(24 20 20 / 10%);
+    }
+  }
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 !important;
+}
+
+a:hover {
+  color: #fff;
+}

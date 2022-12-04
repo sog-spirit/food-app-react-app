@@ -1,0 +1,17 @@
+.form {
+  width: 700px;
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    label {
+      padding: 10px 0px;
+    }
+  }
+  button {
+    margin-top: 20px;
+  }
+}
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+  width: fit-content;
+}
