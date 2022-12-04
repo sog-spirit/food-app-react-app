@@ -8,8 +8,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Form
 } from "react-bootstrap";
-
-import Cookies from "js-cookie";
 import { HOST } from "../../../env/config";
 
 const AdminProduct = () => {
@@ -30,11 +28,7 @@ const AdminProduct = () => {
     }
     else {
       await fetch(`${HOST}/api/admin/product`, {
-        headers: {
-          'Authorization': `jwt=${Cookies.get('jwt')}`
-        },
         method: 'GET',
-        credentials: 'include'
       })
         .then((res) => res.json())
         .then((data) => {
@@ -50,11 +44,7 @@ const AdminProduct = () => {
 
   let getProducts = async () => {
     await fetch(`${HOST}/api/admin/product`, {
-      headers: {
-        'Authorization': `jwt=${Cookies.get('jwt')}`
-      },
       method: 'GET',
-      credentials: 'include'
     })
       .then((res) => res.json())
       .then((data) => {
@@ -68,11 +58,7 @@ const AdminProduct = () => {
 
   let getCategories = async () => {
     await fetch(`${HOST}/api/admin/category`, {
-      headers: {
-        'Authorization': `jwt=${Cookies.get('jwt')}`
-      },
       method: 'GET',
-      credentials: 'include'
     })
       .then((res) => res.json())
       .then((data) => {
@@ -96,12 +82,13 @@ const AdminProduct = () => {
   }
 
   const handleDelete = async (id) => {
+    let token = sessionStorage.getItem('token')
     await fetch(`${HOST}/api/admin/product/${id}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `jwt=${Cookies.get('jwt')}`
+        'Content-Type': 'application/json',
       },
-      credentials: 'include'
+      body: JSON.stringify({token})
     })
     .catch((error) => {
       console.log(error);
@@ -190,7 +177,7 @@ const Tr = (props) => {
       <td>{name}</td>
       <td>
         <img
-          src={HOST + image}
+          src={image}
           alt={name}
         />
       </td>

@@ -64,7 +64,7 @@ const FoodDetails = () => {
       .then((res) => res.json())
       .then((data) => {
         setProduct(data)
-        setPreviewImg(HOST + data.image)
+        setPreviewImg(data.image)
       })
   }
 

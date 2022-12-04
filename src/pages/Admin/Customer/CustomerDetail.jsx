@@ -11,7 +11,6 @@ import {
     ControlLabel,
   } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import Cookies from "js-cookie";
 import ModalBox from "../../../components/UI/ModalBox";
 import Slidebar from "../../../components/UI/slider/SlideBar";
 import { HOST } from "../../../env/config";
@@ -31,11 +30,7 @@ function CustomerDetail() {
 
   const getUserDetail = async () => {
     await fetch(`${HOST}/api/admin/users/${id}`, {
-      headers: {
-        'Authorization': `jwt=${Cookies.get('jwt')}`
-      },
-      method: 'GET',
-      credentials: 'include'
+      method: 'GET'
     })
       .then((res) => res.json())
       .then((data) => {
@@ -49,14 +44,13 @@ function CustomerDetail() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    let token = sessionStorage.getItem('token')
     await fetch(`${HOST}/api/admin/users/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `jwt=${Cookies.get("jwt")}`,
         },
-        body: JSON.stringify(user),
-        credentials: "include",
+        body: JSON.stringify({...user, token}),
     }).then((response) => {
         if (response.status === 200) {
             navigate("/admin/users");

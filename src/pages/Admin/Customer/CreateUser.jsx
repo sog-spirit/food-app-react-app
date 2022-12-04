@@ -7,7 +7,6 @@ import {
     Form
   } from "react-bootstrap";
 import ModalBox from "../../../components/UI/ModalBox";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { HOST } from "../../../env/config";
 
@@ -25,14 +24,13 @@ function CreateUser() {
             setIsModal(true)
         }
         else {
+            let token = sessionStorage.getItem('token')
             await fetch(`${HOST}/api/admin/users`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-            Authorization: `jwt=${Cookies.get("jwt")}`,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(user),
-            credentials: "include",
+            body: JSON.stringify({...user, token}),
         }).then((response) => {
             if (response.status === 200) {
                 navigate("/admin/users");

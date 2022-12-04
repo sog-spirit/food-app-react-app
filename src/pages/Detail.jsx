@@ -7,7 +7,6 @@ import { Container, Row, Col } from "reactstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import Cookies from "js-cookie";
 import { HOST } from "../env/config";
 
 function Detail() {
@@ -15,12 +14,9 @@ function Detail() {
     const [orderDetail, setOrderDetail] = useState([])
     const navigate = useNavigate()
     const getDetailOrder = async () => {
-      await fetch(`${HOST}/api/order/${id}`, {
-        headers: {
-            'Authorization': `jwt=${Cookies.get('jwt')}`
-        },
-        method: 'GET',
-        credentials: 'include'
+      let user_id = sessionStorage.getItem('user')
+      await fetch(`${HOST}/api/user/${user_id}/order/${id}`, {
+        method: 'GET'
         })
         .then((res) => res.json())
         .then((data) => {
@@ -78,7 +74,7 @@ const Tr = (props) => {
       <tr>
         <td className="text-center">{props.index + 1}</td>
         <td className="text-center cart__img-box">
-            <img src={HOST + image} alt="" />
+            <img src={image} alt="" />
         </td>
         <td className="text-center">{name}</td>
         <td className="text-center">{price}</td>

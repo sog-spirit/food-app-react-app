@@ -5,7 +5,6 @@ import Helmet from "../components/Helmet/Helmet";
 import { useContext } from "react";
 import { UserContext } from "../context";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import { HOST } from "../env/config";
 
 function Profile() {
@@ -25,14 +24,13 @@ function Profile() {
 
     const handleSubmit = async (e) => {
       e.preventDefault()
+      let token = sessionStorage.getItem('token')
       await fetch(`${HOST}/api/user/update`, {
         method: 'PATCH',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `jwt=${Cookies.get('jwt')}`
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(profile),
-        credentials: 'include'
+        body: JSON.stringify({...profile, 'token': token})
       })
       .catch((error) => {
         console.log(error);
@@ -43,14 +41,10 @@ function Profile() {
     }
 
     var getUser = async () => {
-      var cookie = Cookies.get('jwt')
-      if (cookie) {
-        await fetch(`${HOST}/api/user/view`, {
-          headers: {
-            'Authorization': `jwt=${cookie}`
-          },
+      let id = sessionStorage.getItem('user')
+      if (id) {
+        await fetch(`${HOST}/api/user/${id}`, {
           method: 'GET',
-          credentials: 'include'
         })
         .then((res) => res.json())
         .then((data) => {

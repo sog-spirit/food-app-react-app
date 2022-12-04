@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie'
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Col, Container, Row } from 'reactstrap'
@@ -15,14 +14,13 @@ function Review() {
     })
     const submitHandler = async (e) => {
         e.preventDefault()
+        let token = sessionStorage.getItem('token')
         await fetch(`${HOST}/api/review`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `jwt=${Cookies.get('jwt')}`
             },
-            credentials: 'include',
-            body: JSON.stringify({...review, order: id})
+            body: JSON.stringify({...review, order: id, token})
         }).then((response) => {
             if (response.status === 201) {
                 navigate('/home')

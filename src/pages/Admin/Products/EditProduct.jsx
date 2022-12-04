@@ -12,7 +12,6 @@ import {
     ControlLabel,
   } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import Cookies from "js-cookie";
 import ModalBox from "../../../components/UI/ModalBox";
 import { HOST } from "../../../env/config";
 
@@ -22,6 +21,7 @@ function EditProduct() {
     const [isModal, setIsModal] = useState(false);
     const [categories, setCategories] = useState([])
     const [product, setProduct] = useState({})
+    const [image, setImage] = useState("")
 
     const handleChange = async (event) => {
         setProduct({ ...product, [event.target.name]: event.target.value });
@@ -33,11 +33,7 @@ function EditProduct() {
 
     const getProductDetail = async () => {
         await fetch(`${HOST}/api/admin/product/${id}`, {
-        headers: {
-            'Authorization': `jwt=${Cookies.get('jwt')}`
-        },
-        method: 'GET',
-        credentials: 'include'
+            method: 'GET',
         })
         .then((res) => res.json())
         .then((data) => {
@@ -51,11 +47,7 @@ function EditProduct() {
 
     let getCategories = async () => {
         await fetch(`${HOST}/api/admin/category`, {
-        headers: {
-            'Authorization': `jwt=${Cookies.get('jwt')}`
-        },
         method: 'GET',
-        credentials: 'include'
         })
         .then((res) => res.json())
         .then((data) => {
@@ -74,16 +66,30 @@ function EditProduct() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        let imageURL = null
+        const data = new FormData()
+        data.append("file", image)
+        data.append("upload_preset", "itcs6zch")
+        data.append("cloud_name", "dmlfhpnyo")
+        await fetch("https://api.cloudinary.com/v1_1/dmlfhpnyo/image/upload", {
+            method: "post",
+            body: data
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            imageURL = data.url
+        }).catch((error) => {
+            console.log(error);
+        })
+        let token = sessionStorage.getItem('token')
         await fetch(`${HOST}/api/admin/product/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `jwt=${Cookies.get('jwt')}`
             },
-            credentials: 'include',
-            body: JSON.stringify(product)
+            body: JSON.stringify({...product, "image": imageURL, token})
         }).then((response) => {
-            console.log(response.status);
+            console.log(response);
             if (response.status === 202) {
                 navigate('/admin/products')
             } else {
@@ -179,15 +185,8 @@ function EditProduct() {
                             Hình ảnh
                         </label>
                         <div className="file-preview">
-                            <div className="img-container">
-                            <div className="file-type"></div>
-                            </div>
-                            <div className="footer"></div>
-                            <div className="btn-delete delete-btn ion-android-delete"></div>
+                            <input type="file" onChange={(e) => setImage(e.target.files[0])}/>
                         </div>
-                        <button name="button" type="button">
-                            Add file
-                        </button>
                         <div className="hidden-field"></div>
                         <span className="help-block">
                             We accept PNG, JPG, and JPEG files
@@ -197,7 +196,7 @@ function EditProduct() {
                     </div>
                     <div className="row w-100">
                     <div className="col-md-4 description--label">
-                        <h3>Thông tin sả/api/product/31n phẩm</h3>
+                        <h3>Thông tin sản phẩm</h3>
                         <p>Mô tả nguyên liệu sản phẩm</p>
                     </div>
                     <div className="col-md-8 description--info">

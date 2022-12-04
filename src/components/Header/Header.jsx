@@ -11,7 +11,6 @@ import { cartUiActions } from "../../store/shopping-cart/cartUiSlice";
 import "../../styles/header.css";
 import { CartContext, UserContext } from "../../context";
 import { useContext } from "react";
-import Cookies from "js-cookie";
 
 const nav__links = [
   {
@@ -47,25 +46,11 @@ const Header = () => {
     dispatch(cartUiActions.toggle());
   };
 
-  useEffect(() => {
-    // window.addEventListener("scroll", () => {
-    //   if (
-    //     document.body.scrollTop > 80 ||
-    //     document.documentElement.scrollTop > 80
-    //   ) {
-    //     headerRef.current.classList.add("header__shrink");
-    //   } else {
-    //     headerRef.current.classList.remove("header__shrink");
-    //   }
-    // });
-
-    // return () => window.removeEventListener("scroll");
-  }, []);
-
   const logOut = () => {
-    Cookies.remove('jwt')
     setCarts([])
     sessionStorage.removeItem('carts');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
     setUser({})
   }
 

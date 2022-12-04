@@ -6,7 +6,6 @@ import Helmet from "../components/Helmet/Helmet";
 import "../styles/checkout.css";
 import { useContext } from "react";
 import { CartContext, UserContext } from "../context";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { HOST } from "../env/config";
 
@@ -39,17 +38,16 @@ const Checkout = () => {
       let newCart = carts.map((cart) => {
         return {...cart, "product": cart.id}
       })
+      let token = sessionStorage.getItem('token')
       await fetch(`${HOST}/api/order`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `jwt=${Cookies.get('jwt')}`
         },
-        credentials: 'include',
         body: JSON.stringify({
           products: newCart, 
           address: address + ", " + enterCity, 
-          note 
+          note, token
         })
       }).then((response) => {
         if (response.status === 200) {

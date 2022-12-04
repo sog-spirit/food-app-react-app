@@ -7,7 +7,6 @@ import "../../../styles/admin.scss";
 import {
   Form
 } from "react-bootstrap";
-import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import { HOST } from "../../../env/config";
 
@@ -27,11 +26,7 @@ const AdminCustomer = () => {
     }
     else {
       await fetch(`${HOST}/api/admin/users`, {
-        headers: {
-          'Authorization': `jwt=${Cookies.get('jwt')}`
-        },
         method: 'GET',
-        credentials: 'include'
       })
       .then((res) => res.json())
       .then((data) => {
@@ -47,11 +42,7 @@ const AdminCustomer = () => {
 
   const getUsers = async () => {
     await fetch(`${HOST}/api/admin/users`, {
-      headers: {
-        'Authorization': `jwt=${Cookies.get('jwt')}`
-      },
       method: 'GET',
-      credentials: 'include'
     })
       .then((res) => res.json())
       .then((data) => {

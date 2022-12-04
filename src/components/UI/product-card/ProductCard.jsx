@@ -37,7 +37,7 @@ const ProductCard = (props) => {
       <div className='product__img'>
         <Link to={`/foods/${id}`}>
           <img
-          src={HOST + image}
+          src={image}
           alt='product-img'
           className='w-50'/>
         </Link>

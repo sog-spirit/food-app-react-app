@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -18,11 +17,7 @@ function AdminOrderDetails() {
 
   const getProductFromOrder = async() => {
     await fetch(`${HOST}/api/admin/orders/detail/${id}`, {
-      headers: {
-        'Authorization': `jwt=${Cookies.get('jwt')}`
-      },
       method: 'GET',
-      credentials: 'include'
     })
       .then((res) => res.json())
       .then((data) => {
@@ -81,7 +76,7 @@ const Tr = (props) => {
         <td>{name}</td>
         <td>
           <img
-            src={HOST + image}
+            src={image}
             alt={name}
           />
         </td>

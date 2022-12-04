@@ -18,7 +18,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useNavigate, useParams } from "react-router-dom";
-import Cookies from "js-cookie";
 import { HOST } from "../../../env/config";
 
 const AdminRating = () => {
@@ -32,14 +31,13 @@ const AdminRating = () => {
   }, [])
 
   const updateReview = async (id) => {
+    let token = sessionStorage.getItem('token')
     await fetch(`${HOST}/api/admin/reviews/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `jwt=${Cookies.get('jwt')}`
       },
-      credentials: 'include',
-      body: JSON.stringify({status: "APPROVE"})
+      body: JSON.stringify({status: "APPROVE", token})
     })
     .catch((error) => {
       console.log(error);
@@ -51,10 +49,6 @@ const AdminRating = () => {
   const getReviews = async () => {
     await fetch(`${HOST}/api/admin/product/${id}/reviews`, {
       method: 'GET',
-      headers: {
-        'Authorization': `jwt=${Cookies.get('jwt')}`
-      },
-      credentials: 'include',
     })
       .then((res) => res.json())
       .then((data) => {

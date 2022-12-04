@@ -18,7 +18,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import { HOST } from "../../../env/config";
 
 const AdminOrder = () => {
@@ -36,11 +35,7 @@ const AdminOrder = () => {
     }
     else {
       await fetch(`${HOST}/api/admin/orders`, {
-        headers: {
-          'Authorization': `jwt=${Cookies.get('jwt')}`
-        },
-        method: 'GET',
-        credentials: 'include'
+        method: 'GET'
       })
         .then((res) => res.json())
         .then((data) => {
@@ -66,11 +61,7 @@ const AdminOrder = () => {
 
   const getOrders = async () => {
     await fetch(`${HOST}/api/admin/orders`, {
-      headers: {
-        'Authorization': `jwt=${Cookies.get('jwt')}`
-      },
-      method: 'GET',
-      credentials: 'include'
+      method: 'GET'
     })
       .then((res) => res.json())
       .then((data) => {
@@ -83,14 +74,13 @@ const AdminOrder = () => {
   }
 
   const completeOrder = async (id) => {
+    let token = sessionStorage.getItem('token')
     await fetch(`${HOST}/api/admin/orders/detail/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `jwt=${Cookies.get('jwt')}`
       },
-      body: JSON.stringify({order_status: "DONE"}),
-      credentials: 'include',
+      body: JSON.stringify({order_status: "DONE", token})
     })
     .catch((error) => {
       console.log(error);

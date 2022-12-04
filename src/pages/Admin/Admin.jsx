@@ -7,43 +7,34 @@ import { UserContext } from "../../context";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Cookies from "js-cookie";
 import { HOST } from "../../env/config";
 
 const Admin = () => {
   const [user, setUser] = useState({})
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   getUser()
-  // }, [])
+  useEffect(() => {
+    getUser()
+  }, [])
 
-  // var getUser = async () => {
-  //   var cookie = Cookies.get('jwt')
-  //   if (cookie) {
-  //     console.log("SEE THE COOKIE");
-  //     await fetch(`${HOST}/api/user/view`, {
-  //       headers: {
-  //         'Authorization': `jwt=${cookie}`
-  //       },
-  //       method: 'GET',
-  //       credentials: 'include'
-  //     })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setUser(data)
-  //       if (data.is_superuser != true) {
-  //         navigate('/error')
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       navigate('/error')
-  //     })
-  //   }
-  // else {
-  //   navigate('/error')
-  // }}
+  var getUser = async () => {
+    let id = sessionStorage.getItem('user')
+    if (id) {
+      await fetch(`${HOST}/api/user/${id}`, {
+        method: 'GET',
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data)
+        if (data.is_superuser != true) {
+          navigate('/error')
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        navigate('/error')
+      })
+  }}
 
   return (
     <Helmet title="AdminPage">

@@ -7,19 +7,15 @@ import { Container, Row, Col } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import Cookies from "js-cookie";
 import { HOST } from "../env/config";
 
 function Order() {
     const [order, setOrder] = useState([])
     const navigate = useNavigate()
     useEffect(async () => {
-      await fetch(`${HOST}/api/order`, {
-        headers: {
-        'Authorization': `jwt=${Cookies.get('jwt')}`
-        },
+      let user_id = sessionStorage.getItem('user')
+      await fetch(`${HOST}/api/user/${user_id}/order`, {
         method: 'GET',
-        credentials: 'include'
       })
       .then((res) => res.json())
       .then((data) => {

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/common-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import ModalBox from "../components/UI/ModalBox";
 import { HOST } from "../env/config";
@@ -26,17 +25,17 @@ function ChangePassword() {
     if (passwordInfo.newPassword !== passwordInfo.confirmPassword) {
       setIsModal(true);
     } else {
+      let token = sessionStorage.getItem('token')
       await fetch(`${HOST}/api/user/update/password`, {
         method: "PATCH",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `jwt=${Cookies.get("jwt")}`,
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           current_password: passwordInfo.oldPassword,
           new_password: passwordInfo.newPassword,
+          token: token
         }),
-        credentials: "include",
       }).then((response) => {
         if (response.status !== 200) {
           setIsModal(true);

@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import React, { useState } from 'react'
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -22,15 +21,14 @@ function AddBalance() {
       };
     const submitHandler = async (e) => {
       e.preventDefault()
-      console.log(balanceForm);
+      let token = sessionStorage.getItem("token")
+      console.log(token);
       let result = await fetch(`${HOST}/api/user/update/balance`, {
         method: 'PATCH',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `jwt=${Cookies.get('jwt')}`
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(balanceForm),
-        credentials: 'include'
+        body: JSON.stringify({...balanceForm, 'token': token})
       })
       let data = await result.json();
       if (data.detail == "Balance added successfully") {
@@ -43,14 +41,10 @@ function AddBalance() {
     }
 
     var getUser = async () => {
-      var cookie = Cookies.get('jwt')
-      if (cookie) {
-        await fetch(`${HOST}/api/user/view`, {
-          headers: {
-            'Authorization': `jwt=${cookie}`
-          },
+      let id = sessionStorage.getItem('user')
+      if (id) {
+        await fetch(`${HOST}/api/user/${id}`, {
           method: 'GET',
-          credentials: 'include'
         })
         .then((res) => res.json())
         .then((data) => {

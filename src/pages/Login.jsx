@@ -3,7 +3,6 @@ import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/common-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
-import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../context";
@@ -27,14 +26,10 @@ const Login = () => {
     });
     let data = await result.json();
     if (data.detail == "Login successfully") {
-
-      Cookies.set('jwt', data.jwt)
-      await fetch(`${HOST}/api/user/view`, {
-        headers: {
-          'Authorization': `jwt=${data.jwt}`
-        },
+      sessionStorage.setItem('token', data.jwt)
+      sessionStorage.setItem('user', data.user_id)
+      await fetch(`${HOST}/api/user/${data.user_id}`, {
         method: 'GET',
-        credentials: 'include'
       })
       .then((res) => res.json())
       .then((data) => {

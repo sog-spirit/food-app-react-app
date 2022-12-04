@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie'
 import React, { createContext, useEffect, useState, useMemo, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {HOST} from "./env/config"
@@ -16,14 +15,10 @@ export const UserProvider = ({children}) => {
   }, [])
 
   var getUser = async () => {
-    var cookie = Cookies.get('jwt')
-    if (cookie) {
-      await fetch(`${HOST}/api/user/view`, {
-        headers: {
-          'Authorization': `jwt=${cookie}`
-        },
+    let id = sessionStorage.getItem('user')
+    if (id) {
+      await fetch(`${HOST}/api/user/${id}`, {
         method: 'GET',
-        credentials: 'include'
       })
       .then((res) => res.json())
       .then((data) => {
