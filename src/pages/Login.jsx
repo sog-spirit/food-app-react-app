@@ -25,8 +25,8 @@ const Login = () => {
       },
       body: JSON.stringify(item),
     });
-    dât = await result.json();
-    if (dât.detail == "Login successfully") {
+    let data = await result.json();
+    if (data.detail == "Login successfully") {
       Cookies.set('jwt', data.jwt)
       await fetch(`http://localhost:8000/api/user/view`, {
         headers: {
