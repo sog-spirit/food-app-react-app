@@ -16,6 +16,10 @@ const Checkout = () => {
   const [address, setAddress] = useState("");
   const [enterCity, setEnterCity] = useState("");
   const [note, setNote] = useState("");
+  const [code , setCode] = useState("");
+  const [isVoucher, setIsVoucher] = useState(false)
+  const [isVoucherError, setIsVoucherError] = useState(false)
+  const [voucher, setVoucher] = useState({})
 
   const { carts, setCarts } = useContext(CartContext)
 
@@ -38,31 +42,61 @@ const Checkout = () => {
         return {...cart, "product": cart.id}
       })
       let token = sessionStorage.getItem('token')
+      let data = {
+        products: newCart, 
+        address: address + ", " + enterCity, 
+        note, token
+      }
+      if (isVoucher === true) {
+        data = {...data, coupon: code}
+      }
       await fetch(`${HOST}/api/order`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          products: newCart, 
-          address: address + ", " + enterCity, 
-          note, token
-        })
+        body: JSON.stringify(data)
       }).then((response) => {
         if (response.status === 200) {
           setCarts([])
           sessionStorage.removeItem('carts');
           navigate('/success')
         } else {
+          console.log(response);
           navigate('/error')
         }
       })
     }
   };
 
+  const submitVoucher = async (e) => {
+    await fetch(`${HOST}/api/coupon/${code}`, {
+      method: 'GET',
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.detail === 'coupon not found') {
+        setIsVoucher(false)
+        setIsVoucherError(true)
+          setTimeout(() => {
+            setIsVoucherError(false)
+          }, 2000);
+        setCode("")
+      }
+      else {
+        setVoucher(data)
+        setIsVoucher(true)
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    e.preventDefault()
+  }
+
   return (
     <Helmet title="Checkout">
-      <CommonSection title="Checkout" />
+      <CommonSection title="Thanh toán" />
       <section>
         <Container>
           <Row>
@@ -126,7 +160,7 @@ const Checkout = () => {
                   className="addTOCart__btn"
                   onClick={e => submitHandler(e)}
                 >
-                  Payment
+                  Thanh toán
                 </button>
               </form>
             </Col>
@@ -136,9 +170,25 @@ const Checkout = () => {
                 <h6 className="d-flex align-items-center justify-content-between mb-3">
                   Tài khoản của bạn: <span>{user.balance} đ</span>
                 </h6>
+                <div className="checkout__voucher">
+                  <input type="text" name="coupon" id="coupon" placeholder="Voucher" value={code} onChange={(e) => setCode(e.target.value)}/>
+                  <button className="addTOCart__btn" onClick={e => submitVoucher(e)}>Áp dụng</button>
+                </div>
+                {isVoucherError && <span style={{color: "red"}}>Voucher không hợp lệ !!</span>}
                 <div className="checkout__total">
                   <h5 className="d-flex align-items-center justify-content-between">
-                    Thanh toán: <span>{totalAmount(carts)} đ</span>
+                    Thanh toán: 
+                    <div className="voucher__calculate">
+                    {
+                      isVoucher ? <>
+                      <span className="line__through" style={{color: 'red'}}>{totalAmount(carts)} đ</span>
+                      <span>{totalAmount(carts) * (100 - voucher.discount) / 100} đ</span>
+                      </> : <>
+                      <span>{totalAmount(carts)} đ</span>
+                      </>
+                    }
+                    
+                    </div>
                   </h5>
                 </div>
               </div>

@@ -47,7 +47,7 @@ const Carts = () => {
 
         <div className='cart__bottom d-flex align-items-center justify-content-between'>
           <h6>
-            Tổng cộng : <span>{toPrice(totalAmount(carts))} đ</span>
+            Tổng cộng: <span>{toPrice(totalAmount(carts))} đ</span>
           </h6>
           <button>
             <Link to='/checkout' onClick={toggleCart}>

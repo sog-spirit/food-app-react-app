@@ -46,12 +46,14 @@ const Cart = () => {
                   </tbody>
                 </table>
               )}
-
+            </Col>
+            <Col lg="4" md="6" className="mt-3">
+              <div className="checkout__bill">
+                  <h5 className="d-flex align-items-center justify-content-between">
+                    Thanh toán: <span>{totalAmount(carts)} đ</span>
+                  </h5>
+              </div>
               <div className="mt-4">
-                <h6>
-                  Tổng cộng: 
-                  <span className="cart__subtotal">{toPrice(totalAmount(carts))} đ</span>
-                </h6>
                 <div className="cart__page-btn">
                   <button className="addTOCart__btn me-4">
                     <Link to="/foods">Tiếp tục mua sắm</Link>

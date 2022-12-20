@@ -8,6 +8,31 @@
   padding-top: 30px;
 }
 
+.checkout__voucher {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.checkout__voucher input {
+  padding-left: 6px;
+  box-sizing: border-box;
+  border-color: none;
+}
+
+.checkout__voucher input:focus {
+  outline: none;
+}
+
+.line__through {
+  text-decoration: line-through;
+}
+
+.voucher__calculate {
+  display: flex;
+  flex-direction: column;
+}
+
 @media only screen and (max-width: 768px) {
   .checkout__bill h6 {
     font-size: 0.9rem;
