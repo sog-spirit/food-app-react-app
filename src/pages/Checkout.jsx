@@ -24,7 +24,6 @@ const Checkout = () => {
       return sum + item.quantity * item.price
     }, 0)
   }
-  const shippingCost = 30000;
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -68,7 +67,7 @@ const Checkout = () => {
         <Container>
           <Row>
             <Col lg="8" md="6">
-              <h6 className="mb-4">Shipping Address</h6>
+              <h6 className="mb-4">Thông tin</h6>
               <form className="checkout__form" onSubmit={submitHandler}>
                 <div className="form__group">
                   <input
@@ -135,17 +134,11 @@ const Checkout = () => {
             <Col lg="4" md="6">
               <div className="checkout__bill">
                 <h6 className="d-flex align-items-center justify-content-between mb-3">
-                  Your balance: <span>${user.balance}</span>
-                </h6>
-                <h6 className="d-flex align-items-center justify-content-between mb-3">
-                  Subtotal: <span>${totalAmount(carts)}</span>
-                </h6>
-                <h6 className="d-flex align-items-center justify-content-between mb-3">
-                  Shipping: <span>${shippingCost}</span>
+                  Tài khoản của bạn: <span>{user.balance} đ</span>
                 </h6>
                 <div className="checkout__total">
                   <h5 className="d-flex align-items-center justify-content-between">
-                    Total: <span>${totalAmount(carts) + shippingCost}</span>
+                    Thanh toán: <span>{totalAmount(carts)} đ</span>
                   </h5>
                 </div>
               </div>

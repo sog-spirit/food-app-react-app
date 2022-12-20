@@ -1,0 +1,26 @@
+.error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.error img{
+    width: 150px;
+    object-fit: contain;
+}
+.error h2, p {
+    text-align: center;
+    margin-top: 20px;
+}
+.error a {
+    border: 1px solid red;
+    padding: 10px 20px;
+    width: 200px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+.error a:hover {
+background-color: red;
+color: #fff;
+}

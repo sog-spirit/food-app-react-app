@@ -5,7 +5,7 @@ import '../../../styles/cart-item.css'
 
 import { useContext } from 'react'
 import { CartContext } from '../../../context'
-import {HOST} from '../../../env/config'
+import { toPrice } from '../../../utils/helper'
 
 const CartItem = ({ item }) => {
   let { id, name, price, image, quantity } = item
@@ -59,7 +59,7 @@ const CartItem = ({ item }) => {
             <div>
               <h6 className='cart__product-title'>{name}</h6>
               <p className=' d-flex align-items-center gap-5 cart__product-price'>
-                {quantity}x <span>${price * quantity}</span>
+                <span>{toPrice(price * quantity)} đ</span>
               </p>
               <div className=' d-flex align-items-center justify-content-between increase__decrease-btn'>
                 <span className='increase__btn' onClick={() => incrementItem()}>

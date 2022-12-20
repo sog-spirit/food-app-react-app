@@ -35,6 +35,16 @@
           }
         }
       }
+    };
+    .main__box {
+      background-color: #fff;
+      width: 300px;
+      padding: 20px 30px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      h1 {
+        margin-bottom: 20px;
+      }
     }
   }
   
@@ -126,4 +136,3 @@
   .btn:hover {
     background-color: #8d2a35 !important;
   }
-  

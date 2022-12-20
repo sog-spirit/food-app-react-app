@@ -3,19 +3,19 @@ import Helmet from "../../../components/Helmet/Helmet";
 import SlideBar from "../../../components/UI/slider/SlideBar";
 import "../../../styles/dashboard.scss";
 import "../../../styles/admin.scss";
-
-import { Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ModalBox from "../../../components/UI/ModalBox";
 import { HOST } from "../../../env/config";
 
-const AddProduct = () => {
-  const navigate = useNavigate()
+const EditCategory = () => {
   const [isModal, setIsModal] = useState(false);
-  const [form, setForm] = useState({})
-  const [categories, setCategories] = useState([])
-  const [image, setImage] = useState("") 
-
+  const {id} = useParams()
+  const [image, setImage] = useState("")
+  const navigate = useNavigate()
+  const [category, setCategory] = useState({})
+  const closeModal = (e) => {
+    setIsModal(false);
+  };
   useEffect(() => {
     const is_superuser = sessionStorage.getItem('is_superuser')
     const is_staff = sessionStorage.getItem('is_staff')
@@ -23,32 +23,25 @@ const AddProduct = () => {
       navigate('/error')
     }
     else {
-      getCategories()
+      getCategory()
     }
   }, [])
-
-  let getCategories = async () => {
-    await fetch(`${HOST}/api/admin/category`, {
-      method: 'GET',
+  const handleChange = async (event) => {
+    setCategory({ ...category, [event.target.name]: event.target.value });
+  };
+  const getCategory = async () => {
+    await fetch(`${HOST}/api/admin/category/${id}`, {
+        method: 'GET',
     })
-      .then((res) => res.json())
-      .then((data) => {
-        setCategories(data)
-      })
-      .catch((error) => {
+    .then((res) => res.json())
+    .then((data) => {
+      setCategory(data)
+    })
+    .catch((error) => {
         console.log(error);
         navigate('/error')
       })
-  };
-
-  const handleChange = async (event) => {
-    setForm({ ...form, [event.target.name]: event.target.value });
-  };
-
-  const closeModal = (e) => {
-    setIsModal(false);
-  };
-
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     let imageURL = null
@@ -67,35 +60,35 @@ const AddProduct = () => {
         console.log(error);
     })
     let token = sessionStorage.getItem('token')
-    await fetch(`${HOST}/api/admin/product`, {
-        method: 'POST',
+    await fetch(`${HOST}/api/admin/category/${id}`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
         credentials: 'include',
-        body: JSON.stringify({...form, "image": imageURL, token})
+        body: JSON.stringify({...category, "image": imageURL, token})
     }).then((response) => {
-        if (response.status === 201) {
-            navigate('/admin/products')
+        if (response.status === 202) {
+            navigate('/admin/categories')
         } else {
             setIsModal(true)
         }
     })
   }
-
   return (
     <Helmet title="AdminPage">
       <div className="admin__section d-flex">
         <SlideBar />
         <div className="main__content">
-          <h1>Thêm sản phẩm</h1>
+          <h1>Sửa danh mục</h1>
           {/* table list product */}
           {/* form add product */}
           <div className="apply-form-component">
             <form action="" className="simple_form new_product">
               <div className="row w-100">
                 <div className="col-md-4 description--label">
-                  <h3>Mô tả sản phẩm</h3>
+                  <h3>Mô tả danh mục</h3>
+                  <p>Những thông tin cơ bản danh mục</p>
                 </div>
                 <div className="col-md-8 description--info">
                   <div className="form-group string required candidate_name">
@@ -103,7 +96,7 @@ const AddProduct = () => {
                       className="string required control-label"
                       for="candidate_name"
                     >
-                      Tên sản phẩm <abbr title="required">*</abbr>
+                      Tên danh mục <abbr title="required">*</abbr>
                     </label>
                     <input
                       className="string required form-control"
@@ -114,50 +107,9 @@ const AddProduct = () => {
                       onChange={(e) => {
                         handleChange(e)
                       }}
+                      value={category.name}
                     />
                   </div>
-                  <div className="form-group string required candidate_name">
-                    <label
-                      className="string required control-label"
-                      for="candidate_name"
-                    >
-                      Loại sản phẩm <abbr title="required">*</abbr>
-                    </label>
-                    <Form.Select
-                      aria-label="Default select example"
-                      className="mr-3"
-                      name="category"
-                      onChange={(e) => {
-                        handleChange(e)
-                      }}
-                    >
-                      <option>Chọn loại sản phẩm</option>
-                      {categories.map((item) => {return <option key={item.id} value={item.id}>{item.name}</option>} )}  
-                    </Form.Select>
-                  </div>
-                  <div className="row">
-                    <div className="col-6">
-                      <div className="form-group string required candidate_name">
-                        <label
-                          className="string required control-label"
-                          for="candidate_name"
-                        >
-                          Giá sản phẩm <abbr title="required">*</abbr>
-                        </label>
-                        <input
-                          className="string required form-control"
-                          required
-                          type="number"
-                          placeholder="Giá sản phẩm"
-                          name="price"
-                          onChange={(e) => {
-                            handleChange(e)
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
                   <div className="form-group file_preview optional product_photo">
                     <label
                       className="file_preview optional control-label"
@@ -172,12 +124,16 @@ const AddProduct = () => {
                     <span className="help-block">
                       We accept PNG, JPG, and JPEG files
                     </span>
+                    <div className="image-photo" style={{ margin: '10px 0 0 0'}} >
+                        <img src={category.image} style={{ width: '150px'}}  alt="" />
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="row w-100">
                 <div className="col-md-4 description--label">
-                  <h3>Thông tin sản phẩm</h3>
+                  <h3>Thông tin danh mục</h3>
+                  <p>Mô tả nguyên liệu danh mục</p>
                 </div>
                 <div className="col-md-8 description--info">
                   <div className="form-group string required candidate_name">
@@ -196,6 +152,7 @@ const AddProduct = () => {
                       onChange={(e) => {
                         handleChange(e)
                       }}
+                      value={category.description}
                     ></textarea>
                   </div>
                 </div>
@@ -203,7 +160,7 @@ const AddProduct = () => {
               <div className="row w-100">
                 <div className="form-group form-submit">
                   <button type="submit" className="btn select__action--add" onClick={e => handleSubmit(e)}>
-                    Thêm sản phẩm
+                    Lưu
                   </button>
                 </div>
               </div>
@@ -218,4 +175,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditCategory;

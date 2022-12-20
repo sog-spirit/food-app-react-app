@@ -22,7 +22,6 @@ function AddBalance() {
     const submitHandler = async (e) => {
       e.preventDefault()
       let token = sessionStorage.getItem("token")
-      console.log(token);
       let result = await fetch(`${HOST}/api/user/update/balance`, {
         method: 'PATCH',
         headers: {
@@ -99,7 +98,7 @@ function AddBalance() {
                   </button>
                   {/* modal box for error */}
                   <ModalBox show={isModal} handleClose={(e) => closeModal(e)}>
-                    <h2>Đã xảy ra lỗi khi nạp tiền</h2>
+                  Đã xảy ra lỗi khi nạp tiền
                   </ModalBox>
                   {/* end modal box for error */}
                 </form>

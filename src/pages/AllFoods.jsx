@@ -132,7 +132,7 @@ const AllFoods = () => {
 
   return (
     <Helmet title="All-Foods">
-      <CommonSection title="All Foods" />
+      <CommonSection title="Ăn uống" />
 
       <section>
         <Container>
@@ -141,7 +141,7 @@ const AllFoods = () => {
               <div className="search__widget d-flex align-items-center justify-content-between ">
                 <input
                   type="text"
-                  placeholder="I'm looking for...."
+                  placeholder="Tìm kiếm...."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -153,11 +153,11 @@ const AllFoods = () => {
             <Col lg="6" md="6" sm="6" xs="12" className="mb-5">
               <div className="sorting__widget text-end">
                 <select className="w-50" onChange={e => setSortTerm(e.target.value)}>
-                  <option value="default">Default</option>
-                  <option value="ascending">Alphabetically, A-Z</option>
-                  <option value="descending">Alphabetically, Z-A</option>
-                  <option value="high-price">High Price</option>
-                  <option value="low-price">Low Price</option>
+                  <option value="default">Mặc định</option>
+                  <option value="ascending">Theo bảng chữ cái, A-Z</option>
+                  <option value="descending">Theo bảng chữ cái, Z-A</option>
+                  <option value="high-price">Giá từ cao đến thấp</option>
+                  <option value="low-price">Giá từ thấp đến cao</option>
                 </select>
               </div>
             </Col>
@@ -172,8 +172,8 @@ const AllFoods = () => {
               <ReactPaginate
                 pageCount={pageCount}
                 onPageChange={changePage}
-                previousLabel={"Prev"}
-                nextLabel={"Next"}
+                previousLabel={"Trước"}
+                nextLabel={"Sau"}
                 containerClassName=" paginationBttns "
               />
             </div>

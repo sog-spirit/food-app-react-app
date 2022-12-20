@@ -6,7 +6,8 @@ const ModalBox = ({ handleClose, show, children }) => {
   return (
     <div className={showHideClassName}>
       <div className="modal-container">
-        {children}
+        <div className="modal-head"><h3>Lỗi</h3></div>
+        <div className="modal-content"><h5>{children}</h5></div>
         <a href="#" className="modal-close" onClick={handleClose}>
           close
         </a>

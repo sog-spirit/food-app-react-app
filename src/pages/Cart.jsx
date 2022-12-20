@@ -7,7 +7,7 @@ import { Container, Row, Col } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext, UserContext } from "../context";
-import { HOST } from "../env/config";
+import { toPrice } from "../utils/helper";
 
 const Cart = () => {
   const {carts, setCarts} = useContext(CartContext);
@@ -21,22 +21,22 @@ const Cart = () => {
 
   return (
     <Helmet title="Cart">
-      <CommonSection title="Your Cart" />
+      <CommonSection title="Thanh toán" />
       <section>
         <Container>
           <Row>
             <Col lg="12">
               {carts.length === 0 ? (
-                <h5 className="text-center">Your cart is empty</h5>
+                <h5 className="text-center">Bạn chưa chọn sản phẩm nào</h5>
               ) : (
                 <table className="table table-bordered text-center">
                   <thead>
                     <tr>
-                      <th>Image</th>
-                      <th>Product Title</th>
-                      <th>Price</th>
-                      <th>Quantity</th>
-                      <th>Delete</th>
+                      <th>Hình ảnh</th>
+                      <th>Tên</th>
+                      <th>Giá</th>
+                      <th>Số lượng</th>
+                      <th>Xóa</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -49,16 +49,15 @@ const Cart = () => {
 
               <div className="mt-4">
                 <h6>
-                  Subtotal: $
-                  <span className="cart__subtotal">{totalAmount(carts)}</span>
+                  Tổng cộng: 
+                  <span className="cart__subtotal">{toPrice(totalAmount(carts))} đ</span>
                 </h6>
-                <p>Taxes and shipping will calculate at checkout</p>
                 <div className="cart__page-btn">
                   <button className="addTOCart__btn me-4">
-                    <Link to="/foods">Continue Shopping</Link>
+                    <Link to="/foods">Tiếp tục mua sắm</Link>
                   </button>
                   <button className="addTOCart__btn">
-                    <Link to={user.id !== undefined ? "/checkout" : "/login"}>Proceed to checkout</Link>
+                    <Link to={user.id !== undefined ? "/checkout" : "/login"}>Thực hiện thanh toán</Link>
                   </button>
                 </div>
               </div>
@@ -90,10 +89,10 @@ const Tr = (props) => {
         <img src={image} alt="" />
       </td>
       <td className="text-center">{name}</td>
-      <td className="text-center">${price}</td>
+      <td className="text-center">{toPrice(price)} đ</td>
       <td className="text-center">{quantity}</td>
       <td className="text-center cart__item-del">
-        <i className="ri-delete-bin-line" onClick={deleteItem}></i>
+        <i className="ri-delete-bin-line" style={{color: 'red'}} onClick={deleteItem}></i>
       </td>
     </tr>
   );

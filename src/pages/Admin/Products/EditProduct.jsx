@@ -4,13 +4,7 @@ import SlideBar from "../../../components/UI/slider/SlideBar";
 import "../../../styles/dashboard.scss";
 import "../../../styles/admin.scss";
 
-import {
-    Form,
-    Button,
-    FormGroup,
-    FormControl,
-    ControlLabel,
-  } from "react-bootstrap";
+import {Form} from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import ModalBox from "../../../components/UI/ModalBox";
 import { HOST } from "../../../env/config";
@@ -44,7 +38,6 @@ function EditProduct() {
             navigate('/error')
           })
     }
-
     let getCategories = async () => {
         await fetch(`${HOST}/api/admin/category`, {
         method: 'GET',
@@ -60,8 +53,16 @@ function EditProduct() {
       };
 
     useEffect(() => {
-        getProductDetail()
-        getCategories()
+        const is_superuser = sessionStorage.getItem('is_superuser')
+        const is_staff = sessionStorage.getItem('is_staff')
+        if (is_superuser !== 'true' && is_staff !== 'true') {
+            navigate('/error')
+        }
+        else {
+            getProductDetail()
+            getCategories()
+        }
+        
     }, [])
 
     const handleSubmit = async (e) => {
@@ -111,7 +112,6 @@ function EditProduct() {
                     <div className="row w-100">
                     <div className="col-md-4 description--label">
                         <h3>Mô tả sản phẩm</h3>
-                        <p>Những thông tin cơ bản sản phẩm</p>
                     </div>
                     <div className="col-md-8 description--info">
                         <div className="form-group string required candidate_name">
@@ -125,7 +125,7 @@ function EditProduct() {
                             className="string required form-control"
                             required
                             type="text"
-                            placeholder="Your full name"
+                            placeholder="Tên sản phẩm"
                             name="name"
                             value={product.name}
                             onChange={(e) => {
@@ -177,7 +177,8 @@ function EditProduct() {
                         </div>
                         </div>
 
-                        <div className="form-group file_preview optional product_photo">
+                        <div className="form-group file_preview optional product_photo" style={{ display: 'flex'}} >
+                        <div className="form-photo">
                         <label
                             className="file_preview optional control-label"
                             for="photo-file"
@@ -192,12 +193,15 @@ function EditProduct() {
                             We accept PNG, JPG, and JPEG files
                         </span>
                         </div>
+                        <div className="image-photo" style={{ margin: '10px 0 0 0'}} >
+                            <img src={product.image} style={{ width: '150px'}}  alt="" />
+                        </div>
+                        </div>
                     </div>
                     </div>
                     <div className="row w-100">
                     <div className="col-md-4 description--label">
                         <h3>Thông tin sản phẩm</h3>
-                        <p>Mô tả nguyên liệu sản phẩm</p>
                     </div>
                     <div className="col-md-8 description--info">
                         <div className="form-group string required candidate_name">
@@ -229,7 +233,7 @@ function EditProduct() {
                     </div>
                     </div>
                     <ModalBox show={isModal} handleClose={(e) => closeModal(e)}>
-                        <h2>Đã xảy ra lỗi</h2>
+                       Đã xảy ra lỗi
                     </ModalBox>
                 </form>
                 </div>

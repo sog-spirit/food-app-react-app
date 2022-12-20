@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import Helmet from '../../../components/Helmet/Helmet'
 import Slidebar from '../../../components/UI/slider/SlideBar'
 import { HOST } from '../../../env/config'
+import { toPrice } from '../../../utils/helper'
 
 function AdminOrderDetails() {
   const {id} = useParams()  
@@ -12,7 +13,14 @@ function AdminOrderDetails() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    getProductFromOrder()
+    const is_superuser = sessionStorage.getItem('is_superuser')
+    const is_staff = sessionStorage.getItem('is_staff')
+    if (is_superuser !== 'true' && is_staff !== 'true') {
+      navigate('/error')
+    }
+    else {
+      getProductFromOrder()
+    }
   }, [])
 
   const getProductFromOrder = async() => {
@@ -81,7 +89,7 @@ const Tr = (props) => {
           />
         </td>
         <td className="d-item--category">{quantity}</td>
-        <td className="d-item--price">{price}đ</td>
+        <td className="d-item--price">{toPrice(price)} đ</td>
         <td className="d-item--des">{slash(description)}</td>
       </tr>
     )

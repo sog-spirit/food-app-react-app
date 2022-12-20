@@ -30,6 +30,8 @@ import CustomerDetail from "../pages/Admin/Customer/CustomerDetail";
 import CreateUser from "../pages/Admin/Customer/CreateUser";
 import Admin from "../pages/Admin/Admin";
 import EditProduct from "../pages/Admin/Products/EditProduct";
+import EditCategory from "../pages/Admin/Category/EditCategory";
+import History from "../pages/Admin/History/History";
 
 const Routers = () => {
   return (
@@ -51,13 +53,14 @@ const Routers = () => {
       <Route path="/add-balance" element={<AddBalance />} />
       <Route path="/register" element={<Register />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/admin" element={<Admin />} />
 
       {/* admin */}
+      <Route path="/admin" element={<Admin />} />
       <Route path="/admin/product/:id" element={<EditProduct />} />
       <Route path="/admin/products" element={<Products />} />
       <Route path="/admin/addProduct" element={<AddProduct />} />
       <Route path="/admin/categories" element={<AdminCategory />} />
+      <Route path="/admin/categories/:id" element={<EditCategory />} />
       <Route path="/admin/addCategory" element={<AddCategory />} />
       <Route path="/admin/orders" element={<AdminOrder />} />
       <Route path="/admin/orders/:id" element={<AdminOrderDetails />} />
@@ -65,6 +68,7 @@ const Routers = () => {
       <Route path="/admin/users" element={<AdminCustomer />} />
       <Route path="/admin/addUser" element={<CreateUser />} />
       <Route path="/admin/users/:id" element={<CustomerDetail />} />
+      <Route path="/admin/users/:id/history" element={<History />} />
     </Routes>
   );
 };

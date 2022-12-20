@@ -4,7 +4,7 @@ import '../../../styles/product-card.css'
 
 import { Link, useNavigate } from 'react-router-dom'
 import { CartContext, UserContext } from '../../../context'  
-import { HOST } from '../../../env/config'
+import { toPrice } from '../../../utils/helper'
 
 const ProductCard = (props) => {
   const { id, name, image, price } = props.item
@@ -49,9 +49,9 @@ const ProductCard = (props) => {
           <Link to={`/foods/${id}`}>{name}</Link>
         </h5>
         <div className=' d-flex align-items-center justify-content-between '>
-          <span className='product__price'>${price}</span>
+          <span className='product__price'>{toPrice(price)} đ</span>
           <button className='addTOCart__btn' onClick={() => addToCart()}>
-            Add to Cart
+            Thêm
           </button>
         </div>
       </div>

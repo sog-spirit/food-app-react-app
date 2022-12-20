@@ -10,6 +10,7 @@ import { cartUiActions } from '../../../store/shopping-cart/cartUiSlice'
 import '../../../styles/shopping-cart.css'
 import { useContext } from 'react'
 import { CartContext } from '../../../context'
+import { toPrice } from '../../../utils/helper'
 
 const Carts = () => {
   const {carts, setCarts} = useContext(CartContext)
@@ -38,7 +39,7 @@ const Carts = () => {
 
         <div className='cart__item-list'>
           {carts.length === 0 ? (
-            <h6 className='text-center mt-5'>No item added to the cart</h6>
+            <h6 className='text-center mt-5'>Bạn chưa chọn sản phẩm nào</h6>
           ) : (
             carts.map((item, index) => <CartItem item={item} key={index} />)
           )}
@@ -46,11 +47,11 @@ const Carts = () => {
 
         <div className='cart__bottom d-flex align-items-center justify-content-between'>
           <h6>
-            Subtotal : <span>${totalAmount(carts)}</span>
+            Tổng cộng : <span>{toPrice(totalAmount(carts))} đ</span>
           </h6>
           <button>
             <Link to='/checkout' onClick={toggleCart}>
-              Checkout
+              Thanh toán
             </Link>
           </button>
         </div>

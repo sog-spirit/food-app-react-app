@@ -54,7 +54,7 @@ function ChangePassword() {
 
   return (
     <Helmet title="Update Password">
-      <CommonSection title="Update Password" />
+      <CommonSection title="Đổi mật khẩu" />
       <section>
         <Container>
           <Row>
@@ -102,7 +102,7 @@ function ChangePassword() {
                 </button>
                 {/* modal box for error */}
                 <ModalBox show={isModal} handleClose={(e) => closeModal(e)}>
-                  <h2>Hello Modal</h2>
+                  Đã xảy ra lỗi
                 </ModalBox>
                 {/* end modal box for error */}
               </form>

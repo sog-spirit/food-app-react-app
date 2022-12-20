@@ -36,7 +36,7 @@ function Review() {
     // const 
   return (
     <Helmet title="Review">
-      <CommonSection title="Review" />
+      <CommonSection title="Đánh giá" />
       <section>
         <Container>
           <Row>
@@ -48,7 +48,7 @@ function Review() {
                
               >
                 <div className="form-group text-left">
-                  <label>Rating</label>
+                  <label>Đánh giá</label>
                   <input name="rating" type="number" className="form-control" min={1} max={5} required onChange={(e) => {
                     handleChange(e)
                 }}/>

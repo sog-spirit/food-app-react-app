@@ -28,6 +28,8 @@ const Login = () => {
     if (data.detail == "Login successfully") {
       sessionStorage.setItem('token', data.jwt)
       sessionStorage.setItem('user', data.user_id)
+      sessionStorage.setItem('is_superuser', data.is_superuser)
+      sessionStorage.setItem('is_staff', data.is_staff)
       await fetch(`${HOST}/api/user/${data.user_id}`, {
         method: 'GET',
       })
@@ -51,7 +53,7 @@ const Login = () => {
 
   return (
     <Helmet title="Login">
-      <CommonSection title="Login" />
+      <CommonSection title="Đăng nhập" />
       <section>
         <Container>
           <Row>
@@ -60,7 +62,7 @@ const Login = () => {
                 <div className="form__group">
                   <input
                     type="text"
-                    placeholder="Username"
+                    placeholder="Tên đăng nhập"
                     required
                     onChange={(e) => {
                       setUsername(e.target.value);
@@ -70,7 +72,7 @@ const Login = () => {
                 <div className="form__group">
                   <input
                     type="password"
-                    placeholder="Password"
+                    placeholder="Mật khẩu"
                     required
                     onChange={(e) => {
                       setPassword(e.target.value);
@@ -82,11 +84,11 @@ const Login = () => {
                   type="submit"
                   className="addTOCart__btn"
                 >
-                  Login
+                  Đăng nhập
                 </button>
               </form>
               <Link to="/register">
-                Don't have an account? Create an account
+                Bạn chưa có tài khoản ? Tạo tài khoản
               </Link>
             </Col>
           </Row>
