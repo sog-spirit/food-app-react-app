@@ -16,16 +16,36 @@ import { HOST } from "../env/config";
 const AllFoods = () => {
   const navigate = useNavigate()
   const [sortTerm, setSortTerm] = useState("default")
+  const [filter, setFilter] = useState('default')
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [categories, setCategories] = useState([])
   const [pageNumber, setPageNumber] = useState(0);
 
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Update the document title using the browser API
     getProducts();
+    getCategories()
   }, []);
+
+  useEffect(async () => {
+    if (filter == 'default') {
+      getProducts()
+    } else {
+      await fetch(`${HOST}/api/admin/product`, {
+        method: 'GET',
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          let items = data.filter((item) => item.category == filter)
+          setProducts(items)
+        })
+        .catch((error) => {
+          console.log(error)
+          navigate('/error')
+        })
+    }
+  }, [filter])
 
   useEffect(() => {
     var sorted = null;
@@ -65,6 +85,20 @@ const AllFoods = () => {
       navigate('/error')
     })
   };
+
+  let getCategories = async () => {
+    await fetch(`${HOST}/api/admin/category`, {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data)
+      })
+      .catch((error) => {
+        console.log(error)
+        navigate('/error')
+      })
+  }
 
   const searchedProduct = products.filter((item) => {
     if (searchTerm.value === "") {
@@ -152,12 +186,22 @@ const AllFoods = () => {
             </Col>
             <Col lg="6" md="6" sm="6" xs="12" className="mb-5">
               <div className="sorting__widget text-end">
-                <select className="w-50" onChange={e => setSortTerm(e.target.value)}>
-                  <option value="default">Mặc định</option>
+                <select className="w-30" onChange={e => setSortTerm(e.target.value)}>
+                  <option value="default">Sắp xếp</option>
                   <option value="ascending">Theo bảng chữ cái, A-Z</option>
                   <option value="descending">Theo bảng chữ cái, Z-A</option>
                   <option value="high-price">Giá từ cao đến thấp</option>
                   <option value="low-price">Giá từ thấp đến cao</option>
+                </select>
+                <select className="w-30" onChange={e => setFilter(e.target.value)} style={{marginLeft: '10px'}}>
+                  <option value="default">Danh mục</option>
+                  {categories.map((item) => {
+                    return (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    )
+                  })}
                 </select>
               </div>
             </Col>
