@@ -72,7 +72,6 @@ const AddProduct = () => {
         headers: {
             'Content-Type': 'application/json',
         },
-        credentials: 'include',
         body: JSON.stringify({...form, "image": imageURL, token})
     }).then((response) => {
         if (response.status === 201) {

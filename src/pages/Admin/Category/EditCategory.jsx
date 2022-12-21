@@ -65,7 +65,6 @@ const EditCategory = () => {
         headers: {
             'Content-Type': 'application/json',
         },
-        credentials: 'include',
         body: JSON.stringify({...category, "image": imageURL, token})
     }).then((response) => {
         if (response.status === 202) {

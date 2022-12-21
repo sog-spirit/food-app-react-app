@@ -68,7 +68,6 @@ function EditCoupon() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            credentials: 'include',
             body: JSON.stringify({expiry_date: '2022-12-27', token})
         }).then((response) => {
             console.log(response.detail);
