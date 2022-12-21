@@ -32,6 +32,9 @@ import Admin from "../pages/Admin/Admin";
 import EditProduct from "../pages/Admin/Products/EditProduct";
 import EditCategory from "../pages/Admin/Category/EditCategory";
 import History from "../pages/Admin/History/History";
+import Coupons from "../pages/Admin/Coupon/Coupons";
+import AddCoupon from "../pages/Admin/Coupon/AddCoupon";
+import EditCoupon from "../pages/Admin/Coupon/EditCoupon";
 
 const Routers = () => {
   return (
@@ -58,6 +61,9 @@ const Routers = () => {
       <Route path="/admin" element={<Admin />} />
       <Route path="/admin/product/:id" element={<EditProduct />} />
       <Route path="/admin/products" element={<Products />} />
+      <Route path="/admin/coupons" element={<Coupons />} />
+      <Route path="/admin/coupon/:id" element={<EditCoupon />} />
+      <Route path="/admin/addCoupon" element={<AddCoupon />} />
       <Route path="/admin/addProduct" element={<AddProduct />} />
       <Route path="/admin/categories" element={<AdminCategory />} />
       <Route path="/admin/categories/:id" element={<EditCategory />} />

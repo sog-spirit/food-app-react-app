@@ -171,10 +171,10 @@ const Checkout = () => {
                   Tài khoản của bạn: <span>{user.balance} đ</span>
                 </h6>
                 <div className="checkout__voucher">
-                  <input type="text" name="coupon" id="coupon" placeholder="Voucher" value={code} onChange={(e) => setCode(e.target.value)}/>
+                  <input type="text" name="coupon" id="coupon" placeholder="Coupon" value={code} onChange={(e) => setCode(e.target.value)}/>
                   <button className="addTOCart__btn" onClick={e => submitVoucher(e)}>Áp dụng</button>
                 </div>
-                {isVoucherError && <span style={{color: "red"}}>Voucher không hợp lệ !!</span>}
+                {isVoucherError && <span style={{color: "red"}}>Coupon không hợp lệ !!</span>}
                 <div className="checkout__total">
                   <h5 className="d-flex align-items-center justify-content-between">
                     Thanh toán: 

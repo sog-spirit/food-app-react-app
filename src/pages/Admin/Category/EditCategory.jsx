@@ -88,7 +88,6 @@ const EditCategory = () => {
               <div className="row w-100">
                 <div className="col-md-4 description--label">
                   <h3>Mô tả danh mục</h3>
-                  <p>Những thông tin cơ bản danh mục</p>
                 </div>
                 <div className="col-md-8 description--info">
                   <div className="form-group string required candidate_name">
@@ -133,7 +132,6 @@ const EditCategory = () => {
               <div className="row w-100">
                 <div className="col-md-4 description--label">
                   <h3>Thông tin danh mục</h3>
-                  <p>Mô tả nguyên liệu danh mục</p>
                 </div>
                 <div className="col-md-8 description--info">
                   <div className="form-group string required candidate_name">

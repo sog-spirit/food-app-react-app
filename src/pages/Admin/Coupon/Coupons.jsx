@@ -7,19 +7,16 @@ import { Link, useNavigate } from 'react-router-dom'
 import { HOST } from '../../../env/config'
 import ReactPaginate from 'react-paginate'
 
-const Categories = () => {
+function Coupons() {
   const navigate = useNavigate()
-  const [categories, setCategories] = useState([])
+  const [coupons, setCoupons] = useState([])
   const [pageNumber, setPageNumber] = useState(0)
 
   const numbersPerPage = 10
   const visitedPage = pageNumber * numbersPerPage
-  const displayPage = categories.slice(
-    visitedPage,
-    visitedPage + numbersPerPage
-  )
+  const displayPage = coupons.slice(visitedPage, visitedPage + numbersPerPage)
 
-  const pageCount = Math.ceil(categories.length / numbersPerPage)
+  const pageCount = Math.ceil(coupons.length / numbersPerPage)
 
   const changePage = ({ selected }) => {
     setPageNumber(selected)
@@ -31,31 +28,36 @@ const Categories = () => {
     if (is_superuser !== 'true' && is_staff !== 'true') {
       navigate('/error')
     } else {
-      getCategories()
+      getCoupons()
     }
   }, [])
 
-  let getCategories = async () => {
-    await fetch(`${HOST}/api/admin/category`, {
+  let getCoupons = async () => {
+    await fetch(`${HOST}/api/coupon`, {
       method: 'GET',
     })
       .then((res) => res.json())
       .then((data) => {
-        setCategories(data)
+        setCoupons(data)
       })
       .catch((error) => {
         console.log(error)
         navigate('/error')
       })
   }
-
   return (
     <Helmet title='AdminPage'>
       <div className='admin__section d-flex'>
         <SlideBar />
         <div className='main__content'>
-          <h1>Danh mục</h1>
-
+          <h1>Coupon</h1>
+          <div className='select__actions'>
+            <Link to='/admin/addCoupon' className='d-flex'>
+              <button type='button' className='btn select__action--add'>
+                Thêm coupon
+              </button>
+            </Link>
+          </div>
           {/* table list product */}
           <div className='d-list'>
             <table className='table'>
@@ -64,7 +66,8 @@ const Categories = () => {
                   <th scope='col'>#</th>
                   <th scope='col'>Hình ảnh</th>
                   <th scope='col'>Tên</th>
-                  <th scope='col'>Ghi chú</th>
+                  <th scope='col'>Mã code</th>
+                  <th scope='col'>Giảm giá</th>
                   <th scope='col'>Sửa</th>
                 </tr>
               </thead>
@@ -96,21 +99,20 @@ const Categories = () => {
 }
 
 const Tr = (props) => {
-  const { id, name, image, description } = props.item
+  const { image, id, name, code, discount } = props.item
   const slash = (value) => {
     return value ? value : '-'
   }
   return (
     <tr className='d-item'>
       <th scope='row'>{props.index + 1 + props.visitedPage}</th>
-      <td>
-        <img src={image} alt={name} />
-      </td>
-      <td className='d-item--category'>{name}</td>
-      <td className='d-item--des'>{slash(description)}</td>
+      <td className='d-item--category'><img src={image} alt={name} /></td>
+      <td className='d-item--category'>{slash(name)}</td>
+      <td className='d-item--des'>{slash(code)}</td>
+      <td className='d-item--des'>{discount} %</td>
       <td>
         <Link
-          to={`/admin/categories/${id}`}
+          to={`/admin/coupon/${id}`}
           className='d-item--icon d-item--edit'
         >
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
@@ -122,4 +124,4 @@ const Tr = (props) => {
   )
 }
 
-export default Categories
+export default Coupons
