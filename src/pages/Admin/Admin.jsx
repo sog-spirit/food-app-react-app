@@ -21,6 +21,7 @@ import {
 const Admin = () => {
   const navigate = useNavigate()
   const [data, setData] = useState({})
+  const [revenue, setRevenue] = useState({})
 
   const user_count = [
     { name: 'Tổng người dùng', user: data.total_user },
@@ -41,6 +42,25 @@ const Admin = () => {
     .then((res) => res.json())
     .then((data) => {
       setData(data)
+    })
+    .catch((error) => {
+      console.log(error);
+      navigate('/error')
+    })
+    await fetch(`${HOST}/api/admin/revenue/months`, {
+      method: 'GET',
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      let temp_data = []
+      for (const [key, value] of Object.entries(data)) {
+        let obj = {}
+        obj["name"] = key
+        obj["amount"] = value
+        temp_data = [...temp_data, obj]
+      }
+      console.log(temp_data);
+      setRevenue(temp_data)
     })
     .catch((error) => {
       console.log(error);
@@ -68,6 +88,21 @@ const Admin = () => {
             <h1>Tổng thu nhập</h1>
             <h3>{data.doned_order_total} đ</h3>
           </div>
+          <h1>Thu nhập trong những tháng gần đây</h1>
+          <BarChart
+            width={1200}
+            height={300}
+            data={revenue}
+            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+            >
+            <CartesianGrid strokeDasharray='3 3' />
+            <XAxis dataKey='name' />
+            <YAxis yAxisId='left' orientation='left' stroke='#eeeeee' />
+            <YAxis yAxisId='right' orientation='right' stroke='#000' />
+            <Tooltip />
+            <Legend />
+            <Bar yAxisId='right' dataKey='amount' fill='#ff7c0a' />
+          </BarChart>
           <h1>Số người dùng</h1>
           <BarChart
             width={1200}
