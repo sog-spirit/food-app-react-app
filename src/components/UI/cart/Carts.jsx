@@ -9,11 +9,12 @@ import { cartUiActions } from '../../../store/shopping-cart/cartUiSlice'
 
 import '../../../styles/shopping-cart.css'
 import { useContext } from 'react'
-import { CartContext } from '../../../context'
+import { CartContext, UserContext } from '../../../context'
 import { toPrice } from '../../../utils/helper'
 
 const Carts = () => {
   const {carts, setCarts} = useContext(CartContext)
+  const {user, setUser} = useContext(UserContext)
 
   const dispatch = useDispatch()
 
@@ -50,9 +51,7 @@ const Carts = () => {
             Tổng cộng: <span>{toPrice(totalAmount(carts))} đ</span>
           </h6>
           <button>
-            <Link to='/checkout' onClick={toggleCart}>
-              Thanh toán
-            </Link>
+          <Link to={user.id !== undefined ? "/checkout" : "/login"}>Thanh toán</Link>
           </button>
         </div>
       </ListGroup>

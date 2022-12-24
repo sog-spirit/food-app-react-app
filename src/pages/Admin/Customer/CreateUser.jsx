@@ -29,7 +29,9 @@ function CreateUser() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (user.password !== user.confirmPassword) {
+        var phoneno = /^\d{10}$/
+        if (user.password !== user.confirmPassword ||
+            !user.phone.matches(phoneno)) {
             setIsModal(true)
         }
         else {

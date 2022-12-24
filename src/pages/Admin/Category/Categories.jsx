@@ -64,7 +64,6 @@ const Categories = () => {
                   <th scope='col'>#</th>
                   <th scope='col'>Hình ảnh</th>
                   <th scope='col'>Tên</th>
-                  <th scope='col'>Ghi chú</th>
                   <th scope='col'>Sửa</th>
                 </tr>
               </thead>
@@ -107,7 +106,6 @@ const Tr = (props) => {
         <img src={image} alt={name} />
       </td>
       <td className='d-item--category'>{name}</td>
-      <td className='d-item--des'>{slash(description)}</td>
       <td>
         <Link
           to={`/admin/categories/${id}`}

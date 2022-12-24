@@ -18,15 +18,14 @@ const Home = () => {
           <Row>
             <Col lg="6" md="6">
               <div className="hero__content  ">
-                <h5 className="mb-3">Easy way to make an order</h5>
+                <h5 className="mb-3">Đặt đơn ngay hôm nay !</h5>
                 <h1 className="mb-4 hero__title">
-                  <span>HUNGRY?</span> Just wait <br /> food at
-                  <span> your door</span>
+                  <span>BẠN ĐANG ĐÓI ?</span> Chúng tôi <br /> tới
+                  <span> ngay đây</span>
                 </h1>
 
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui
-                  magni delectus tenetur autem, sint veritatis!
+                Bạn có thể đặt hàng bất cứ lúc nào và chúng tôi sẽ giao hàng trực tiếp đến nhà bạn!
                 </p>
 
                 <div className="hero__btns d-flex align-items-center gap-5 mt-4">

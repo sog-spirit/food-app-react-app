@@ -2,14 +2,13 @@ import React, { useContext } from 'react'
 
 import '../../../styles/product-card.css'
 
-import { Link, useNavigate } from 'react-router-dom'
-import { CartContext, UserContext } from '../../../context'  
+import { Link } from 'react-router-dom'
+import { CartContext } from '../../../context'  
 import { toPrice } from '../../../utils/helper'
 
 const ProductCard = (props) => {
   const { id, name, image, price } = props.item
   const { carts, setCarts } = useContext(CartContext)
-  const navigate = useNavigate()
 
   const addToCart = async () => {
     const index = carts.findIndex((item) => {

@@ -12,6 +12,34 @@
   font-size: 2rem;
 }
 
+.product__number {
+  display: flex;
+  margin-bottom: 1.3rem;
+  margin-top: -1rem;
+}
+
+.number__btn {
+  border: none;
+  padding: 7px 15px;
+  background: #df2020;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+
+.product__number input {
+  width: 50px;
+  text-align: center;
+  margin-right: 1rem;
+  /* border-radius: 5px;
+  border: none; */
+}
+
+.product__number input:focus {
+  outline: none;
+}
+
 .category {
   font-weight: 600;
   color: #212245;

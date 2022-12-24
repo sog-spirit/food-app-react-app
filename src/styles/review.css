@@ -6,6 +6,12 @@
     padding: 10px 0;
 }
 
+.no__review {
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
 .user-info {
     display: inline-block;
 }
