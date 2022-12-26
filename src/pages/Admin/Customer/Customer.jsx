@@ -102,12 +102,12 @@ const AdminCustomer = () => {
             <table className='table'>
               <thead>
                 <tr>
-                  <th scope='col'>#</th>
-                  <th scope='col'>Tên</th>
-                  <th scope='col'>Ngày khởi tạo</th>
-                  <th scope='col'>Vai trò</th>
-                  <th scope='col'>Chi tiết</th>
-                  <th scope='col'>Lịch sử</th>
+                  <th scope='col' style={{textAlign: 'left'}}>#</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Tên</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Ngày khởi tạo</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Vai trò</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Chi tiết</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Lịch sử</th>
                 </tr>
               </thead>
               <tbody>

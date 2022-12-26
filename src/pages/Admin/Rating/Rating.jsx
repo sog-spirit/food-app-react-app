@@ -73,13 +73,13 @@ const AdminRating = () => {
             <table className='table'>
               <thead>
                 <tr>
-                  <th scope='col'>#</th>
-                  <th scope='col'>Tên</th>
-                  <th scope='col'>Ngày khởi tạo</th>
-                  <th scope='col'>Đánh giá</th>
-                  <th scope='col'>Nội dung</th>
-                  <th scope='col'>Trạng thái</th>
-                  <th scope='col'>Chấp nhận</th>
+                  <th scope='col' style={{textAlign: 'left'}}>#</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Tên</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Ngày khởi tạo</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Đánh giá</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Nội dung</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Trạng thái</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Chấp nhận</th>
                 </tr>
               </thead>
               <tbody>

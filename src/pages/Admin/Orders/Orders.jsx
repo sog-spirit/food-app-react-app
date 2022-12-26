@@ -124,16 +124,16 @@ const AdminOrder = () => {
             <table className='table'>
               <thead>
                 <tr>
-                  <th scope='col'>#</th>
-                  <th scope='col'>Tên</th>
-                  <th scope='col'>Ngày đặt</th>
-                  <th scope='col'>Số tiền</th>
-                  <th scope='col'>Trạng thái</th>
-                  <th scope='col'>Địa chỉ</th>
-                  <th scope='col'>
+                  <th scope='col' style={{textAlign: 'left'}}>#</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Tên</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Ngày đặt</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Số tiền</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Trạng thái</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Địa chỉ</th>
+                  <th scope='col' style={{textAlign: 'left'}}>
                     Chi tiết
                   </th>
-                  <th scope='col'>
+                  <th scope='col' style={{textAlign: 'left'}}>
                     Hoàn thành
                   </th>
                 </tr>

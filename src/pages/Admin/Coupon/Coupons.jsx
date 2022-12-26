@@ -63,12 +63,12 @@ function Coupons() {
             <table className='table'>
               <thead>
                 <tr>
-                  <th scope='col'>#</th>
-                  <th scope='col'>Tên</th>
-                  <th scope='col'>Mã code</th>
-                  <th scope='col'>Giảm giá</th>
-                  <th scope='col'>Thời gian hết hạn</th>
-                  <th scope='col'>Sửa</th>
+                  <th scope='col' style={{textAlign: 'left'}}>#</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Tên</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Mã code</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Giảm giá</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Thời gian hết hạn</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Sửa</th>
                 </tr>
               </thead>
               <tbody style={{textAlign: 'center'}}>

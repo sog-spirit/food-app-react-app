@@ -171,12 +171,12 @@ const AdminProduct = () => {
             <table className='table'>
               <thead>
                 <tr>
-                  <th scope='col'>#</th>
-                  <th scope='col'>Tên</th>
-                  <th scope='col'>Hình ảnh</th>
-                  <th scope='col'>Danh mục</th>
-                  <th scope='col'>Giá tiền</th>
-                  <th scope='col'>Đánh giá</th>
+                  <th scope='col' style={{textAlign: 'left'}}>#</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Tên</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Hình ảnh</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Danh mục</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Giá tiền</th>
+                  <th scope='col' style={{textAlign: 'left'}}>Đánh giá</th>
                   <th scope='col'>
                     Sửa
                   </th>
