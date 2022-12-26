@@ -68,7 +68,7 @@ function EditCoupon() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({expiry_date: '2022-12-27', token})
+            body: JSON.stringify({...coupon, token})
         }).then((response) => {
             console.log(response.detail);
             if (response.status === 200) {
