@@ -106,7 +106,7 @@ const Tr = (props) => {
     const {id, _created, message} = props.item
     return (
       <tr className="d-item">
-        <th scope="row">{(props.index + 1) + props.visitedPage}</th>
+        <td>{(props.index + 1) + props.visitedPage}</td>
         <td>{slash(message)}</td>
         <td>{format_date(_created)}</td>  
       </tr>
