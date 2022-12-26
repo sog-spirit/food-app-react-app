@@ -71,7 +71,7 @@ function Coupons() {
                   <th scope='col'>Sửa</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody style={{textAlign: 'center'}}>
                 {displayPage.map((item, index) => (
                   <Tr
                     item={item}
@@ -108,12 +108,12 @@ const Tr = (props) => {
   }
   return (
     <tr className='d-item'>
-      <td scope='row'>{props.index + 1 + props.visitedPage}</td>
-      <td className='d-item--category'>{slash(name)}</td>
-      <td className='d-item--des'>{slash(code)}</td>
-      <td className='d-item--des'>{discount} %</td>
-      <td className='d-item--des'>{format_date(expiry_date)}</td>
-      <td>
+      <td scope='row' style={{textAlign: 'left'}}>{props.index + 1 + props.visitedPage}</td>
+      <td className='d-item--category' style={{textAlign: 'left'}}>{slash(name)}</td>
+      <td className='d-item--des' style={{textAlign: 'left'}}>{slash(code)}</td>
+      <td className='d-item--des' style={{textAlign: 'left'}}>{discount} %</td>
+      <td className='d-item--des' style={{textAlign: 'left'}}>{format_date(expiry_date)}</td>
+      <td style={{textAlign: 'left'}}>
         <Link
           to={`/admin/coupon/${id}`}
           className='d-item--icon d-item--edit'
