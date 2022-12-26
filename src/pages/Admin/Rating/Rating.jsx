@@ -132,7 +132,7 @@ const Tr = (props) => {
 
   return (
     <tr className='d-item'>
-      <th scope='row'>{(props.index + 1) + props.visitedPage}</th>
+      <th scope='d-item--category'>{(props.index + 1) + props.visitedPage}</th>
       <td>{slash(name)}</td>
       <td>{format_date(_created)}</td>
       <td>{rating}</td>

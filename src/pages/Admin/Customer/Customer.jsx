@@ -157,7 +157,7 @@ const Tr = (props) => {
   const { id, name, date_joined, role } = props.item
   return (
     <tr className='d-item'>
-      <th scope='row'>{(props.index + 1) + props.visitedPage}</th>
+      <th scope='d-item--category'>{(props.index + 1) + props.visitedPage}</th>
       <td>{slash(name)}</td>
       <td>{format_date(date_joined)}</td>
       <td className=''>{mapping_value(role)}</td>

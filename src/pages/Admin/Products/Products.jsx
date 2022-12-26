@@ -220,7 +220,7 @@ const Tr = (props) => {
   }
   return (
     <tr className='d-item'>
-      <th scope='row'>{(props.index + 1) + props.visitedPage}</th>
+      <th scope='d-item--category'>{(props.index + 1) + props.visitedPage}</th>
       <td>{name}</td>
       <td>
         <img src={image} alt={name} />
