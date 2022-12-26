@@ -107,7 +107,7 @@ const Tr = (props) => {
     return date.substring(0, 10) + ' ' + date.substring(11, 16)
   }
   return (
-    <tr className='d-item'>
+    <tr className='d-item' style={{textAlign: 'left'}}>
       <td scope='row' style={{textAlign: 'left'}}>{props.index + 1 + props.visitedPage}</td>
       <td className='d-item--category' style={{textAlign: 'left'}}>{slash(name)}</td>
       <td className='d-item--des' style={{textAlign: 'left'}}>{slash(code)}</td>
