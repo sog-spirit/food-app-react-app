@@ -11,7 +11,6 @@ function AddCoupon() {
     const navigate = useNavigate();
     const [coupon, setCoupon] = useState({})
     const [isModal, setIsModal] = useState(false);
-    const [image, setImage] = useState("") 
     const handleChange = async (event) => {
         setCoupon({ ...coupon, [event.target.name]: event.target.value });
     };
@@ -26,28 +25,13 @@ function AddCoupon() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        let imageURL = null
-        const data = new FormData()
-        data.append("file", image)
-        data.append("upload_preset", "itcs6zch")
-        data.append("cloud_name", "dmlfhpnyo")
-        await fetch("https://api.cloudinary.com/v1_1/dmlfhpnyo/image/upload", {
-            method: "post",
-            body: data
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            imageURL = data.url
-        }).catch((error) => {
-            console.log(error);
-        })
         let token = sessionStorage.getItem('token')
             await fetch(`${HOST}/api/admin/coupon`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({...coupon, "image": imageURL,  token}),
+            body: JSON.stringify({...coupon,  token}),
         }).then((response) => {
             if (response.status === 200) {
                 navigate("/admin/coupons");
@@ -129,21 +113,6 @@ function AddCoupon() {
                         handleChange(e)
                         }}
                     />
-                    </div>
-                    <div className="form-group file_preview optional product_photo">
-                        <label
-                        className="file_preview optional control-label"
-                        for="photo-file"
-                        >
-                        Hình ảnh
-                        </label>
-                        <div className="file-preview">
-                        <input type="file" onChange={(e) => setImage(e.target.files[0])}/>
-                        </div>
-                        <div className="hidden-field"></div>
-                        <span className="help-block">
-                        We accept PNG, JPG, and JPEG files
-                        </span>
                     </div>
                     <div className="form-group string required candidate_name">
                         <label

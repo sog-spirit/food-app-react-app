@@ -12,7 +12,6 @@ function EditCoupon() {
     const {id} = useParams()
     const [coupon, setCoupon] = useState({})
     const [isModal, setIsModal] = useState(false);
-    const [image, setImage] = useState("") 
     const handleChange = async (event) => {
         setCoupon({ ...coupon, [event.target.name]: event.target.value });
     };
@@ -47,21 +46,6 @@ function EditCoupon() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let imageURL = null
-        const data = new FormData()
-        data.append("file", image)
-        data.append("upload_preset", "itcs6zch")
-        data.append("cloud_name", "dmlfhpnyo")
-        await fetch("https://api.cloudinary.com/v1_1/dmlfhpnyo/image/upload", {
-            method: "post",
-            body: data
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            imageURL = data.url
-        }).catch((error) => {
-            console.log(error);
-        })
         let token = sessionStorage.getItem('token')
         await fetch(`${HOST}/api/admin/coupon/${id}`, {
             method: 'PUT',
@@ -148,24 +132,6 @@ function EditCoupon() {
                         }}
                         value={coupon.discount}
                     />
-                    </div>
-                    <div className="form-group file_preview optional product_photo">
-                        <label
-                        className="file_preview optional control-label"
-                        for="photo-file"
-                        >
-                        Hình ảnh
-                        </label>
-                        <div className="file-preview">
-                        <input type="file" onChange={(e) => setImage(e.target.files[0])}/>
-                        </div>
-                        <div className="hidden-field"></div>
-                        <span className="help-block">
-                        We accept PNG, JPG, and JPEG files
-                        </span>
-                        <div className="image-photo" style={{ margin: '10px 0 0 0'}} >
-                        <img src={coupon.image} style={{ width: '150px'}}  alt="" />
-                    </div>
                     </div>
                     <div className="form-group string required candidate_name">
                         <label
