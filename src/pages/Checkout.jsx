@@ -31,7 +31,7 @@ const Checkout = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (carts.length === 0) {
+    if (carts.length === 0 || address === "") {
       setIsError(true)
         setTimeout(() => {
             setIsError(false)
