@@ -31,7 +31,7 @@ const Checkout = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (carts.length === 0 || address === "") {
+    if (carts.length === 0 || address === "" || enterCity === "") {
       setIsError(true)
         setTimeout(() => {
             setIsError(false)
@@ -61,6 +61,7 @@ const Checkout = () => {
           setCarts([])
           sessionStorage.removeItem('carts');
           navigate('/success')
+          getUser()
         } else {
           console.log(response);
           navigate('/error')
@@ -68,6 +69,22 @@ const Checkout = () => {
       })
     }
   };
+
+  var getUser = async () => {
+    let id = sessionStorage.getItem('user')
+    if (id) {
+      await fetch(`${HOST}/api/user/${id}`, {
+        method: 'GET',
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data)
+      })
+      .catch((error) => {
+        console.log(error);
+        navigate('/error')
+      })
+  }}
 
   const submitVoucher = async (e) => {
     await fetch(`${HOST}/api/coupon/${code}`, {
@@ -107,7 +124,7 @@ const Checkout = () => {
                   <input
                     type="text"
                     name="name"
-                    placeholder="Enter your name"
+                    placeholder="Tên"
                     required
                     value={user.name}
                     readOnly
@@ -116,7 +133,7 @@ const Checkout = () => {
                 <div className="form__group">
                   <input
                     type="number"
-                    placeholder="Phone number"
+                    placeholder="Số điện thoại"
                     required
                     value={user.phone} 
                     readOnly
@@ -125,7 +142,7 @@ const Checkout = () => {
                 <div className="form__group">
                   <input
                     type="email"
-                    placeholder="Enter your email"
+                    placeholder="Email"
                     required
                     value={user.email}
                     readOnly
@@ -134,7 +151,7 @@ const Checkout = () => {
                 <div className="form__group">
                   <input
                     type="text"
-                    placeholder="Address"
+                    placeholder="Địa chỉ"
                     required
                     onChange={(e) => setAddress(e.target.value)}
                   />
@@ -142,7 +159,7 @@ const Checkout = () => {
                 <div className="form__group">
                   <input
                     type="text"
-                    placeholder="City"
+                    placeholder="Thành phố"
                     required
                     onChange={(e) => setEnterCity(e.target.value)}
                     />
@@ -150,7 +167,7 @@ const Checkout = () => {
                 <div className="form__group">
                   <input
                     type="text"
-                    placeholder="Note"
+                    placeholder="Ghi chú"
                     required
                     onChange={(e) => setNote(e.target.value)}
                   />
