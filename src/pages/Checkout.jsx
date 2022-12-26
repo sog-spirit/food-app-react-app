@@ -90,6 +90,11 @@ const Checkout = () => {
   }}
 
   const submitVoucher = async (e) => {
+    e.preventDefault()
+    if (code === "") {
+      setIsVoucher(false)
+    }
+    else {
     await fetch(`${HOST}/api/coupon/${code}`, {
       method: 'GET',
     })
@@ -111,8 +116,7 @@ const Checkout = () => {
     .catch((error) => {
       console.log(error);
     })
-    e.preventDefault()
-  }
+  }}
 
   return (
     <Helmet title="Checkout">
