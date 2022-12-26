@@ -64,6 +64,7 @@ function Coupons() {
               <thead>
                 <tr>
                   <th scope='col'>#</th>
+                  <th scope='col'>Hình ảnh</th>
                   <th scope='col'>Tên</th>
                   <th scope='col'>Mã code</th>
                   <th scope='col'>Giảm giá</th>
@@ -108,7 +109,8 @@ const Tr = (props) => {
   }
   return (
     <tr className='d-item'>
-      <th scope='row'>{props.index + 1 + props.visitedPage}</th>
+      <td scope='row'>{props.index + 1 + props.visitedPage}</td>
+      <td className='d-item--category'><img src={image} alt={name} /></td>
       <td className='d-item--category'>{slash(name)}</td>
       <td className='d-item--des'>{slash(code)}</td>
       <td className='d-item--des'>{discount} %</td>
