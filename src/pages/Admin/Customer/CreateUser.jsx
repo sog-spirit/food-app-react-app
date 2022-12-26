@@ -30,42 +30,37 @@ function CreateUser() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         var phoneno = /^\d{10}$/
-        if (user.password !== user.confirmPassword ||
-            !user.phone.matches(phoneno)) {
-            setIsModal(true)
+        let imageURL = null
+        const data = new FormData()
+        data.append("file", image)
+        data.append("upload_preset", "itcs6zch")
+        data.append("cloud_name", "dmlfhpnyo")
+        await fetch("https://api.cloudinary.com/v1_1/dmlfhpnyo/image/upload", {
+            method: "post",
+            body: data
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            imageURL = data.url
+        }).catch((error) => {
+            console.log(error);
+        })
+        let token = sessionStorage.getItem('token')
+        await fetch(`${HOST}/api/admin/users`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({...user, "image": imageURL, token}),
+    }).then((response) => {
+        if (response.status === 200) {
+            navigate("/admin/users");
         }
         else {
-            let imageURL = null
-            const data = new FormData()
-            data.append("file", image)
-            data.append("upload_preset", "itcs6zch")
-            data.append("cloud_name", "dmlfhpnyo")
-            await fetch("https://api.cloudinary.com/v1_1/dmlfhpnyo/image/upload", {
-                method: "post",
-                body: data
-            })
-            .then((res) => res.json())
-            .then((data) => {
-                imageURL = data.url
-            }).catch((error) => {
-                console.log(error);
-            })
-            let token = sessionStorage.getItem('token')
-            await fetch(`${HOST}/api/admin/users`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({...user, "image": imageURL, token}),
-        }).then((response) => {
-            if (response.status === 200) {
-                navigate("/admin/users");
-            }
-            else {
-                setIsModal(true)
-            }
+            setIsModal(true)
+        }
         })
-    }}
+    }
     
     const closeModal = (e) => {
         setIsModal(false);

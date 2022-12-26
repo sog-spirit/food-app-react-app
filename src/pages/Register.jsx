@@ -18,42 +18,35 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     var phoneno = /^\d{10}$/
-    if (
-      user.password !== user.confirmPassword ||
-      !user.phone.matches(phoneno)
-    ) {
-      setIsModal(true)
-    } else {
-      let imageURL = null
-      const data = new FormData()
-      data.append('file', image)
-      data.append('upload_preset', 'itcs6zch')
-      data.append('cloud_name', 'dmlfhpnyo')
-      await fetch('https://api.cloudinary.com/v1_1/dmlfhpnyo/image/upload', {
-        method: 'post',
-        body: data,
+    let imageURL = null
+    const data = new FormData()
+    data.append('file', image)
+    data.append('upload_preset', 'itcs6zch')
+    data.append('cloud_name', 'dmlfhpnyo')
+    await fetch('https://api.cloudinary.com/v1_1/dmlfhpnyo/image/upload', {
+      method: 'post',
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        imageURL = data.url
       })
-        .then((res) => res.json())
-        .then((data) => {
-          imageURL = data.url
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-      await fetch(`${HOST}/api/user/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ...user, image: imageURL, role: 'user' }),
-      }).then((response) => {
-        if (response.status === 201) {
-          navigate('/login')
-        } else {
-          setIsModal(true)
-        }
+      .catch((error) => {
+        console.log(error)
       })
-    }
+    await fetch(`${HOST}/api/user/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...user, image: imageURL, role: 'user' }),
+    }).then((response) => {
+      if (response.status === 201) {
+        navigate('/login')
+      } else {
+        setIsModal(true)
+      }
+    })
   }
 
   const closeModal = (e) => {

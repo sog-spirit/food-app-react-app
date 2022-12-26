@@ -27,10 +27,6 @@ function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     var phoneno = /^\d{10}$/;
-    if (!profile.phone.matches(phoneno)) {
-      navigate('/error')
-    }
-    else {
       let imageURL = null
       const data = new FormData()
       data.append("file", image)
@@ -59,7 +55,6 @@ function Profile() {
       })
       getUser()
       navigate('/home')
-    }
   }
   
   var getUser = async () => {
