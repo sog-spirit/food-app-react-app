@@ -61,9 +61,9 @@ function History() {
             <table className="table">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nội dung</th>
-                  <th scope="col">Ngày </th>
+                  <th scope="col" style={{textAlign: 'left'}}>#</th>
+                  <th scope="col" style={{textAlign: 'left'}}>Nội dung</th>
+                  <th scope="col" style={{textAlign: 'left'}}>Ngày </th>
                 </tr>
               </thead>
               <tbody>
