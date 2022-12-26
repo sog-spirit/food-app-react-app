@@ -64,7 +64,10 @@ const Checkout = () => {
           getUser()
         } else {
           console.log(response);
-          navigate('/error')
+          setIsError(true)
+          setTimeout(() => {
+              setIsError(false)
+          }, 2000);
         }
       })
     }
