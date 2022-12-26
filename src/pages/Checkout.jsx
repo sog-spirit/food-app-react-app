@@ -194,7 +194,7 @@ const Checkout = () => {
               </div>
             </Col>
           </Row>
-          {isError && <span style={{color: "red"}}>Xin hãy chọn sản phẩm !!</span>}
+          {isError && <span style={{color: "red"}}>Đã xảy ra lỗi !!</span>}
         </Container>
       </section>
     </Helmet>
