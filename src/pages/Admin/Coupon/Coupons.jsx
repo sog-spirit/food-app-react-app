@@ -68,6 +68,7 @@ function Coupons() {
                   <th scope='col'>Tên</th>
                   <th scope='col'>Mã code</th>
                   <th scope='col'>Giảm giá</th>
+                  <th scope='col'>Thời gian hết hạn</th>
                   <th scope='col'>Sửa</th>
                 </tr>
               </thead>
@@ -99,9 +100,12 @@ function Coupons() {
 }
 
 const Tr = (props) => {
-  const { image, id, name, code, discount } = props.item
+  const { image, id, name, code, discount, expiry_date } = props.item
   const slash = (value) => {
     return value ? value : '-'
+  }
+  const format_date = (date) => {
+    return date.substring(0, 10) + ' ' + date.substring(11, 16)
   }
   return (
     <tr className='d-item'>
@@ -110,6 +114,7 @@ const Tr = (props) => {
       <td className='d-item--category'>{slash(name)}</td>
       <td className='d-item--des'>{slash(code)}</td>
       <td className='d-item--des'>{discount} %</td>
+      <td className='d-item--des'>{format_date(expiry_date)}</td>
       <td>
         <Link
           to={`/admin/coupon/${id}`}
