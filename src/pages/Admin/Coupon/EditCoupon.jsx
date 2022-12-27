@@ -111,6 +111,7 @@ function EditCoupon() {
                             handleChange(e)
                         }}
                         value={coupon.code}
+                        readOnly
                         />
                     </div>
                     <div className="form-group string required candidate_name">
