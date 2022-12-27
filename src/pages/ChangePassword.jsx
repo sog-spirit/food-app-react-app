@@ -98,7 +98,7 @@ function ChangePassword() {
                   type="submit"
                   className="addTOCart__btn"
                 >
-                  Save
+                  Lưu
                 </button>
                 {/* modal box for error */}
                 <ModalBox show={isModal} handleClose={(e) => closeModal(e)}>
