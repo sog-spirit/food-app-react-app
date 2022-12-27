@@ -182,7 +182,6 @@ function CreateUser() {
                     >
                         <option value="default">Vai trò</option> 
                         <option value="admin">Quản lý</option> 
-                        <option value="staff">Nhân viên</option> 
                         <option value="user">Khách hàng</option> 
                     </Form.Select>
                     </div>

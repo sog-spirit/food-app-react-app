@@ -26,7 +26,6 @@ const Admin = () => {
   const user_count = [
     { name: 'Tổng người dùng', user: data.total_user },
     { name: 'Quản lý', user: data.admin },
-    { name: 'Nhân viên', user: data.staff },
     { name: 'Người dùng', user: data.user },
   ]
   const order_count = [

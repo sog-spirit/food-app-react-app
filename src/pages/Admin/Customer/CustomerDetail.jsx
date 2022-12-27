@@ -171,7 +171,6 @@ const closeModal = (e) => {
                         value={user.role}
                     >
                         <option value="admin">Quản lý</option> 
-                        <option value="staff">Nhân viên</option> 
                         <option value="user">Khách hàng</option> 
                     </Form.Select>
                     </div>
